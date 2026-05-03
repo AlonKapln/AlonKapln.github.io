@@ -7,11 +7,19 @@ function toggleMenu() {
 
 }
 
+let cachedThemeIcons = null;
+function getThemeIcons() {
+    if (!cachedThemeIcons) {
+        cachedThemeIcons = document.querySelectorAll(".theme-btn");
+    }
+    return cachedThemeIcons;
+}
+
 function toggleTheme() {
     document.body.classList.toggle("dark-mode");
     const isDark = document.body.classList.contains("dark-mode");
 
-    const icons = document.querySelectorAll(".theme-btn");
+    const icons = getThemeIcons();
     icons.forEach(icon => {
         icon.innerHTML = isDark ? "☀️" : "🌙";
     });
@@ -23,7 +31,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
         document.body.classList.add("dark-mode");
-        document.querySelectorAll(".theme-btn").forEach(icon => {
+        getThemeIcons().forEach(icon => {
             icon.innerHTML = "☀️";
         });
     }
