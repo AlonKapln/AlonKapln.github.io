@@ -7,12 +7,20 @@ function toggleMenu() {
 
 }
 
+let themeIcons = null;
+
+function getThemeIcons() {
+    if (!themeIcons) {
+        themeIcons = document.querySelectorAll(".theme-btn");
+    }
+    return themeIcons;
+}
+
 function toggleTheme() {
     document.body.classList.toggle("dark-mode");
     const isDark = document.body.classList.contains("dark-mode");
 
-    const icons = document.querySelectorAll(".theme-btn");
-    icons.forEach(icon => {
+    getThemeIcons().forEach(icon => {
         icon.innerHTML = isDark ? "☀️" : "🌙";
     });
 
@@ -23,7 +31,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
         document.body.classList.add("dark-mode");
-        document.querySelectorAll(".theme-btn").forEach(icon => {
+        getThemeIcons().forEach(icon => {
             icon.innerHTML = "☀️";
         });
     }
